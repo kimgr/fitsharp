@@ -19,9 +19,9 @@ namespace fitSharp.Test.NUnit.Machine {
             Assert.AreEqual(SampleRunner.Result, result);
         }
 
-        [Test] public void AllArgumentsAreForwardedToRunner() {
+        [Test]
+        public void AllArgumentsAreForwardedToRunner() {
             RunShell(new [] {"more", "-r", typeof(SampleRunner).FullName, "stuff"});
-
             Assert.AreEqual(4, SampleRunner.LastArguments.Length);
             Assert.AreEqual("more", SampleRunner.LastArguments[0]);
             Assert.AreEqual("-r", SampleRunner.LastArguments[1]);

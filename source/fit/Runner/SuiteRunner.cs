@@ -1,3 +1,4 @@
+
 // Copyright © 2010 Syterra Software Inc.
 // This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License version 2.
 // This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -49,7 +50,7 @@ namespace fit.Runner {
 	    private void RunFolder(StoryTestSuite theSuite, bool dryRun) {
             PageAction pageAction = SelectPageAction(dryRun);
 
-	        StoryTestPage suiteSetUp = theSuite.SuiteSetUp;
+            StoryTestPage suiteSetUp = theSuite.SuiteSetUp;
             if (suiteSetUp != null) pageAction(suiteSetUp);
 
             foreach (StoryTestPage testPage in theSuite.Pages) {
@@ -67,8 +68,8 @@ namespace fit.Runner {
                 // Finish() creates reportIndex.html in the output directory. We don't want that for dry-run.
                 theSuite.Finish();
             }
-	    }
-
+            }
+	    
         private PageAction SelectPageAction(bool dryRun) {
             if (dryRun)
                 return DryRunStoryPage;

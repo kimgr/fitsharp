@@ -23,6 +23,7 @@ namespace fit.Runner {
             if (!configuration.GetItem<Settings>().DryRun)
                 reporter.Write(string.Format("\n{0}, time: {1}\n", Results, DateTime.Now - now));
 
+
             return result;
         }
 
@@ -30,9 +31,19 @@ namespace fit.Runner {
             ParseArguments(configuration, commandLineArguments);
             myRunner = new SuiteRunner(configuration, myProgressReporter);
             myRunner.Run(
-                new StoryTestFolder(configuration, new FileSystemModel(configuration.GetItem<Settings>().CodePageNumber)),
+                CreateStoryTestFolder(configuration),
                 string.Empty);
             return myRunner.TestCounts.FailCount;
+        }
+
+        private StoryTestFolder CreateStoryTestFolder(Configuration configuration) {
+            StoryTestFolder storyTestFolder = new StoryTestFolder(configuration, new FileSystemModel(configuration.GetItem<Settings>().CodePageNumber));
+
+            string tagList = configuration.GetItem<Settings>().TagList;
+            if (!string.IsNullOrEmpty(tagList))
+                storyTestFolder.AddPageFilter(new TagFilter(tagList));
+
+            return storyTestFolder;
         }
 
         public string Results {get { return myRunner.TestCounts.Description; }}
@@ -48,6 +59,7 @@ namespace fit.Runner {
                 }
             }
             );
+            argumentParser.AddArgumentHandler("t", (value) => { configuration.GetItem<Settings>().TagList = value; });
 
             argumentParser.Parse(commandLineArguments);
 

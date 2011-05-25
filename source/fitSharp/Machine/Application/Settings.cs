@@ -8,6 +8,9 @@ using System.Configuration;
 using System.IO;
 using fitSharp.Machine.Model;
 
+
+
+
 namespace fitSharp.Machine.Application {
     public class Settings: Copyable {
         private static readonly string appSettingsBehavior;
@@ -26,6 +29,7 @@ namespace fitSharp.Machine.Application {
         public string Behavior { get; set; }
         public string AppConfigFile { get; set; }
         public bool DryRun { get; set; }
+        public string TagList { get; set; }        
 
         public int CodePageNumber {
             get {
@@ -55,6 +59,7 @@ namespace fitSharp.Machine.Application {
             Runner = other.Runner;
             XmlOutput = other.XmlOutput;
             DryRun = other.DryRun;
+            TagList = other.TagList;
         }
 
         public Copyable Copy() {
