@@ -7,9 +7,6 @@ using System;
 using System.Configuration;
 using System.IO;
 using fitSharp.Machine.Model;
-using System.Threading;
-using System.Globalization;
-using System.Linq;
 
 namespace fitSharp.Machine.Application {
     public class Settings: Copyable {
@@ -27,31 +24,8 @@ namespace fitSharp.Machine.Application {
         public string Runner { get; set; }
         public string XmlOutput { get; set; }
         public string Behavior { get; set; }
-        public string Culture { get; set; }
         public string AppConfigFile { get; set; }
         public bool DryRun { get; set; }
-
-        public CultureInfo CultureInfo
-        {
-          get
-          {
-            if (IsInvariantCultureTag(Culture))
-              return CultureInfo.InvariantCulture;
-
-            if (!IsValidCultureName(Culture))
-              return DefaultCulture;
-
-            return CultureInfo.GetCultureInfo(Culture);
-          }
-        }
-
-        public static CultureInfo DefaultCulture
-        {
-          get
-          {
-            return Thread.CurrentThread.CurrentCulture;
-          }
-        }
 
         public int CodePageNumber {
             get {
@@ -80,25 +54,11 @@ namespace fitSharp.Machine.Application {
             OutputFolder = other.OutputFolder;
             Runner = other.Runner;
             XmlOutput = other.XmlOutput;
-            Culture = other.Culture;
             DryRun = other.DryRun;
         }
 
         public Copyable Copy() {
             return new Settings(this);
-        }
-
-        private bool IsInvariantCultureTag(string name)
-        {
-          return (string.Compare(name, "invariant", true) == 0);
-        }
-
-        private bool IsValidCultureName(string name)
-        {
-          if (string.IsNullOrEmpty(name))
-            return false;
-
-          return CultureInfo.GetCultures(CultureTypes.AllCultures).Any(ci => ci.Name == name);
         }
     }
 }

@@ -1,4 +1,4 @@
-// Copyright © 2010 Syterra Software Inc. All rights reserved.
+// Copyright © 2011 Syterra Software Inc. All rights reserved.
 // The use and distribution terms for this software are covered by the Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
 // which can be found in the file license.txt at the root of this distribution. By using this software in any fashion, you are agreeing
 // to be bound by the terms of this license. You must not remove this notice, or any other, from this software.
@@ -6,30 +6,19 @@
 using fitSharp.Fit.Engine;
 using fitSharp.Fit.Model;
 using fitSharp.Fit.Operators;
+using fitSharp.Machine.Engine;
 using fitSharp.Machine.Model;
 
 namespace fitSharp.Fit.Service {
     public interface CellOperation {
         void Check(object systemUnderTest, Tree<Cell> memberName, Tree<Cell> parameters, Tree<Cell> expectedCell);
         void Check(object systemUnderTest, TypedValue actualValue, Tree<Cell> expectedCell);
-        bool Compare(TypedValue actual, Tree<Cell> expectedCell);
-        TypedValue Create(string className, Tree<Cell> parameterCell);
-        void Input(object systemUnderTest, Tree<Cell> memberName, Tree<Cell> cell);
-        TypedValue TryInvoke(object target, Tree<Cell> memberName, Tree<Cell> parameters, Tree<Cell> targetCell);
+        TypedValue TryInvoke(object target, Tree<Cell> memberName, Tree<Cell> parameters, Cell targetCell);
     }
 
     public static class CellOperationExtension {
         public static void Check(this CellOperation operation, object systemUnderTest, Tree<Cell> memberName, Tree<Cell> expectedCell) {
             operation.Check(systemUnderTest, memberName, new CellTree(), expectedCell);
-        }
-
-        public static void Create(this CellOperation operation, MutableDomainAdapter adapter, string className, Tree<Cell> parameterCell) {
-            TypedValue instance = operation.Create(className, parameterCell);
-            adapter.SetSystemUnderTest(instance.Value);
-        }
-
-        public static TypedValue Create(this CellOperation operation, string className) {
-            return operation.Create(className, new CellTree());
         }
 
         public static TypedValue Invoke(this CellOperation operation, object target, Tree<Cell> memberName) {
@@ -42,7 +31,7 @@ namespace fitSharp.Fit.Service {
             return result;
         }
 
-        public static TypedValue Invoke(this CellOperation operation, object target, Tree<Cell> memberName, Tree<Cell> parameters, Tree<Cell> targetCell) {
+        public static TypedValue Invoke(this CellOperation operation, object target, Tree<Cell> memberName, Tree<Cell> parameters, Cell targetCell) {
             TypedValue result = operation.TryInvoke(target, memberName, parameters, targetCell);
             result.ThrowExceptionIfNotValid();
             return result;
@@ -53,7 +42,7 @@ namespace fitSharp.Fit.Service {
         }
 
         public static TypedValue TryInvoke(this CellOperation operation, object target, Tree<Cell> memberName, Tree<Cell> parameters) {
-            return operation.TryInvoke(target, memberName, parameters, null);
+            return operation.TryInvoke(target, memberName, parameters, new CellBase(string.Empty));
         }
 
     }
@@ -65,38 +54,60 @@ namespace fitSharp.Fit.Service {
             this.processor = processor;
         }
 
-        public TypedValue Create(string className, Tree<Cell> parameterCell) {
-            return processor.Create(className, parameterCell);
-        }
-
-        public void Input(object systemUnderTest, Tree<Cell> memberName, Tree<Cell> cell) {
-            processor.Execute(
-                ExecuteContext.Make(ExecuteCommand.Input, systemUnderTest), 
-                ExecuteParameters.MakeMemberCell(memberName, cell));
-        }
-
         public void Check(object systemUnderTest, Tree<Cell> memberName, Tree<Cell> parameters, Tree<Cell> expectedCell) {
-            processor.Execute(
-                ExecuteContext.Make(ExecuteCommand.Check, systemUnderTest), 
+            processor.Invoke(
+                ExecuteContext.Make(ExecuteCommand.Check, systemUnderTest),
+                ExecuteContext.CheckCommand,
                 ExecuteParameters.Make(memberName, parameters, expectedCell));
         }
 
         public void Check(object systemUnderTest, TypedValue actualValue, Tree<Cell> expectedCell) {
-            processor.Execute(
+            processor.Invoke(
                 ExecuteContext.Make(ExecuteCommand.Check, systemUnderTest, actualValue),
+                ExecuteContext.CheckCommand,
                 ExecuteParameters.Make(expectedCell));
         }
 
-        public TypedValue TryInvoke(object target, Tree<Cell> memberName, Tree<Cell> parameters, Tree<Cell> targetCell) {
-            return processor.Execute(
-                ExecuteContext.Make(ExecuteCommand.Invoke, new TypedValue(target)), 
-                ExecuteParameters.Make(memberName, parameters, targetCell));
+        public TypedValue TryInvoke(object target, Tree<Cell> memberName, Tree<Cell> parameters, Cell targetCell) {
+            //return processor.Invoke(
+            //    ExecuteContext.Make(ExecuteCommand.Invoke, new TypedValue(target)), 
+            //    ExecuteContext.InvokeCommand,
+            //    ExecuteParameters.Make(memberName, parameters, targetCell));
+            return processor.Invoke(
+                CellOperationContext.Make(target, memberName, parameters),
+                CellOperationContext.InvokeCommand,
+                new CellTree(new CellTree(targetCell)));
+        }
+    }
+
+    public class CellOperationContext {
+        public const string InvokeCommand = "Invoke";
+
+        public static TypedValue Make(object target, Tree<Cell> memberName, Tree<Cell> parameters) {
+            return new TypedValue(new CellOperationContext(target, memberName, parameters));
         }
 
-        public bool Compare(TypedValue actual, Tree<Cell> expectedCell) {
-            return (bool)processor.Execute(
-                             ExecuteContext.Make(ExecuteCommand.Compare, actual), 
-                             ExecuteParameters.Make(expectedCell)).Value;
+        CellOperationContext(object target, Tree<Cell> memberName, Tree<Cell> parameters) {
+            this.target = target;
+            this.memberName = memberName;
+            this.parameters = parameters;
         }
+
+        public TypedValue DoInvoke(CellProcessor processor) {
+            var targetInstance = new TypedValue(target);
+            var targetObjectProvider = target as TargetObjectProvider;
+            var name = GetMemberName(processor);
+            return processor.Invoke(
+                    targetObjectProvider != null ? new TypedValue(targetObjectProvider.GetTargetObject()) : targetInstance,
+                    name, parameters);
+        }
+
+        string GetMemberName(Processor<Cell> processor) {
+            return processor.ParseTree<Cell, MemberName>(memberName).ToString();
+        }
+
+        readonly object target;
+        readonly Tree<Cell> memberName;
+        readonly Tree<Cell> parameters;
     }
 }

@@ -19,11 +19,14 @@ namespace fitSharp.Test.NUnit.Machine {
             Assert.AreEqual(SampleRunner.Result, result);
         }
 
-        [Test] public void AdditionalArgumentsArePassed() {
+        [Test] public void AllArgumentsAreForwardedToRunner() {
             RunShell(new [] {"more", "-r", typeof(SampleRunner).FullName, "stuff"});
-            Assert.AreEqual(2, SampleRunner.LastArguments.Length);
+
+            Assert.AreEqual(4, SampleRunner.LastArguments.Length);
             Assert.AreEqual("more", SampleRunner.LastArguments[0]);
-            Assert.AreEqual("stuff", SampleRunner.LastArguments[1]);
+            Assert.AreEqual("-r", SampleRunner.LastArguments[1]);
+            Assert.AreEqual(typeof(SampleRunner).FullName, SampleRunner.LastArguments[2]);
+            Assert.AreEqual("stuff", SampleRunner.LastArguments[3]);
         }
 
         [Test] public void CustomAppConfigIsUsed() {

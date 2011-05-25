@@ -1,4 +1,4 @@
-﻿// Copyright © 2009,2010 Syterra Software Inc. All rights reserved.
+﻿// Copyright © 2011 Syterra Software Inc. All rights reserved.
 // The use and distribution terms for this software are covered by the Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
 // which can be found in the file license.txt at the root of this distribution. By using this software in any fashion, you are agreeing
 // to be bound by the terms of this license. You must not remove this notice, or any other, from this software.
@@ -12,7 +12,7 @@ namespace fitSharp.Fit.Operators {
     public class CellOperators: Operators<Cell, CellProcessor> {
 
         public CellOperators() {
-            Add(new DataRowRuntime<Cell, CellProcessor>(), 0);
+            Add(new InvokeDataRow<Cell, CellProcessor>(), 0);
             Add(new ParseDefault(), 0);
             Add(new ParseMemberName(), 0);
             Add(new ParseBoolean(), 0);
@@ -23,7 +23,7 @@ namespace fitSharp.Fit.Operators {
             Add(new ParseSymbol(), 0);
 
             Add(new ExecuteDefault(), 0);
-            Add(new ExecuteInterpret(), 0);
+            Add(new InvokeOperationDefault(), 0);
             Add(new ExecuteEmpty(), 0);
             Add(new ExecuteSymbolSave(), 0);
 
@@ -56,7 +56,7 @@ namespace fitSharp.Fit.Operators {
 
         private static readonly Dictionary<string, string> renames = new Dictionary<string, string> {
                                                                                                         {"boolhandler", typeof(ParseBoolean).FullName},
-                                                                                                        {"emptycellhandler", typeof(ExecuteEmpty).FullName},
+                                                                                                        {"emptycellhandler", typeof(ExecuteEmpty).FullName}, //todo: inputemptyoperation
                                                                                                         {"exceptionkeywordhandler", typeof(ExecuteException).FullName},
                                                                                                         {"nullkeywordhandler", typeof(ParseNull).FullName},
                                                                                                         {"blankkeywordhandler", typeof(ParseBlank).FullName},
