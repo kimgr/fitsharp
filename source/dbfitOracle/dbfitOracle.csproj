@@ -55,6 +55,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\InternalVersionInfo.cs">
+      <Link>InternalVersionInfo.cs</Link>
+    </Compile>
     <Compile Include="OracleEnvironment.cs" />
     <Compile Include="OracleTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
