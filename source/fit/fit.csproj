@@ -56,6 +56,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\InternalVersionInfo.cs">
+      <Link>InternalVersionInfo.cs</Link>
+    </Compile>
     <Compile Include="Exception\AbandonStoryTestException.cs" />
     <Compile Include="Exception\InvalidMethodException.cs" />
     <Compile Include="Fixtures\CalculateFixture.cs" />
