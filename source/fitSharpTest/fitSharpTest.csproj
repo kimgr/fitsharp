@@ -66,19 +66,6 @@
     <Compile Include="Acceptance\Slim\SlimDomain.cs" />
     <Compile Include="Double\Person.cs" />
     <Compile Include="Double\SampleClassTwo.cs" />
-<<<<<<< HEAD
-    <Compile Include="Double\TestSocket.cs" />
-    <Compile Include="NUnit\Application\ArgumentParserTest.cs" />
-    <Compile Include="NUnit\Fit\BindingFactoryTest.cs" />
-    <Compile Include="NUnit\Fit\CellOperatorsTest.cs" />
-    <Compile Include="NUnit\Fit\CellProcessorBaseTest.cs" />
-    <Compile Include="NUnit\Fit\ComposeShowAsOperatorTest.cs" />
-    <Compile Include="NUnit\Fit\DefineTest.cs" />
-    <Compile Include="NUnit\Fit\ExecuteDefaultTest.cs" />
-    <Compile Include="NUnit\Fit\ExecuteStoryTestTest.cs" />
-    <Compile Include="Double\FolderTestModel.cs" />
-    <Compile Include="NUnit\Fit\GracefulNameTest.cs" />
-=======
     <Compile Include="Double\TestSocket.cs" />
     <Compile Include="NUnit\Application\ArgumentParserTest.cs" />
     <Compile Include="NUnit\Fit\BindingFactoryTest.cs" />
@@ -92,7 +79,6 @@
     <Compile Include="NUnit\Fit\ExecuteStoryTestTest.cs" />
     <Compile Include="Double\FolderTestModel.cs" />
     <Compile Include="NUnit\Fit\GracefulNameTest.cs" />
->>>>>>> tag-release
     <Compile Include="NUnit\Fit\ConfigureFixtureTest.cs" />
     <Compile Include="NUnit\Fit\ParseByteArrayTest.cs" />
     <Compile Include="NUnit\Fit\ParseDateTest.cs" />
