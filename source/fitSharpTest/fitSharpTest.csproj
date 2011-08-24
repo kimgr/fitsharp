@@ -46,6 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\InternalVersionInfo.cs">
+      <Link>InternalVersionInfo.cs</Link>
+    </Compile>
     <Compile Include="Acceptance\Slim\SlimDomain.cs" />
     <Compile Include="Double\FullTestConfig.cs" />
     <Compile Include="Double\Person.cs" />
