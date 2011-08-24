@@ -15,11 +15,20 @@ if "%TAG_NAME%"=="" (
   set VERSION_TEXT=Built from http://github.com/kimgr/fitsharp/tree/%TAG_NAME%
 )
 
+set FXVER=%2
+if "%FXVER%"=="" (
+  set FXVER=v4.0
+) else (
+  if not "%FXVER:~0,1%"=="v" (
+    set FXVER=v%FXVER%
+  )
+)
+
 REM Generate InternalVersionInfo.cs
 call :WriteInternalVersionInfoHeader
 echo [assembly: AssemblyInformationalVersion^("%VERSION_TEXT%"^)] >> source\InternalVersionInfo.cs
 
-call build.cmd "/p:TargetFrameworkVersion=v4.0;PlatformTarget=x86;Config=Release"
+call build.cmd "/p:TargetFrameworkVersion=%FXVER%;PlatformTarget=x86;Config=Release"
 
 set EXIT_CODE=%ERRORLEVEL%
 
