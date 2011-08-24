@@ -1,0 +1,19 @@
+Release 2011-08-24 (pagepath)
+-----------------------------
+Release tag: https://github.com/kimgr/fitsharp/commits/20110824
+Based on upstream version: https://github.com/jediwhale/fitsharp/tree/0dbfd424ef436936da6a49f8d5dac2589c89d17a
+
+* Dry-run folded into official FitSharp release
+* Tagging folded into official FitSharp release
+* Optional assemblies folded into official FitSharp release
+* Appbase-relative app.config path folded into official FitSharp release
+* Currently executing page path is now exposed to fixtures
+
+Release 2011-05-25 (test-grouping)
+----------------------------------
+Release tag: https://github.com/kimgr/fitsharp/commits/test-grouping
+Based on upstream version: https://github.com/kimgr/fitsharp/commit/eb4ce6e915722dae8cd721cb6414074642ca3cd0
+
+* Added support for dry-run
+* Added support for tagging
+
