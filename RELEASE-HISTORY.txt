@@ -1,6 +1,13 @@
+Release 2011-12-07 (2.0)
+-----------------------------
+Release tag: https://github.com/kimgr/fitsharp/tree/20111207
+Based on upstream version: https://github.com/jediwhale/fitsharp/tree/5d276409e92392df1e2ce7ff1488fe4806aef7a3
+
+* Merged official FitSharp 2.0 release, which includes all our prior custom changes
+
 Release 2011-08-24 (pagepath)
 -----------------------------
-Release tag: https://github.com/kimgr/fitsharp/commits/20110824
+Release tag: https://github.com/kimgr/fitsharp/tree/20110824
 Based on upstream version: https://github.com/jediwhale/fitsharp/tree/0dbfd424ef436936da6a49f8d5dac2589c89d17a
 
 * Dry-run folded into official FitSharp release
