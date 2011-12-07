@@ -13,7 +13,8 @@
 
 <Target Name="solution">
     <MSBuild Projects="fitsharp.sln" 
-        Properties="Configuration=$(Config)" />
+        Properties="Configuration=$(Config)" 
+        Targets="Rebuild" />
 </Target>
 
 <Target Name="unittests">
