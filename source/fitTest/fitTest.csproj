@@ -48,6 +48,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\InternalVersionInfo.cs">
+      <Link>InternalVersionInfo.cs</Link>
+    </Compile>
     <Compile Include="Acceptance\AbstractNestedLists.cs" />
     <Compile Include="Acceptance\ArithmeticColumnFixture.cs" />
     <Compile Include="Acceptance\ArrayFixtureUnderTest.cs" />

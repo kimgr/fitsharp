@@ -37,6 +37,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\InternalVersionInfo.cs">
+      <Link>InternalVersionInfo.cs</Link>
+    </Compile>
     <Compile Include="environment\AbstractDbEnvironment.cs" />
     <Compile Include="environment\DbEnvironment.cs" />
     <Compile Include="environment\DbEnvironmentFactory.cs" />
