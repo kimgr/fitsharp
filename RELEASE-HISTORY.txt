@@ -1,3 +1,11 @@
+Release 2011-12-08 (Better results)
+-----------------------------
+Release tag: https://github.com/kimgr/fitsharp/tree/20111208
+Based on upstream version: https://github.com/jediwhale/fitsharp/tree/5d276409e92392df1e2ce7ff1488fe4806aef7a3
+
+* setup/teardown pages are no longer copied to output dir
+* fit.css copied before any results, so that intermediate results can be read styled
+
 Release 2011-12-07 (2.0)
 -----------------------------
 Release tag: https://github.com/kimgr/fitsharp/tree/20111207
