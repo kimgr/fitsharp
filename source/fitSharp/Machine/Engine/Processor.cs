@@ -101,10 +101,6 @@ namespace fitSharp.Machine.Engine {
             Operators.Add(anOperator);
         }
 
-        public void AddOperator(Operator<T, P> anOperator, int priority) {
-            Operators.Add(anOperator, priority);
-        }
-
         public void RemoveOperator(string operatorName) {
             Operators.Remove(operatorName);
         }
