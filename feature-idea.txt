@@ -1,0 +1,17 @@
+Fixture profiler
+----------------
+
+Three combinable modes;
+
+1) Inline console reporting of enter/leave fixture with time elapsed. 
+This is useful to correlate with other logging, e.g. from system under test
+
+2) Aggregate report to specified filename.
+Every fixture call listed with time elapsed.
+Total with number of calls and total time elapsed per fixture
+
+3) Suppress invocation of fixtures
+Allows us to count the number of fixture invocations without actually running them.
+This is useful because it's probably much faster than having to execute the entire suite.
+
+The trick is that they can be used individually, or together, in any combination.
