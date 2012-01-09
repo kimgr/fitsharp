@@ -52,6 +52,10 @@ namespace fit.Runner {
             argumentParser.AddArgumentHandler("x", value => memory.GetItem<FileExclusions>().AddRange(value.Split(';')));
             argumentParser.AddArgumentHandler("t", value => memory.GetItem<Settings>().TagList = value);
 
+            // Allow -fp with or without prefix argument
+            argumentParser.AddSwitchHandler("fp", () => memory.GetItem<FixtureProfiler>().Configure(true, null));
+            argumentParser.AddArgumentHandler("fp", value => memory.GetItem<FixtureProfiler>().Configure(true, value));
+
             argumentParser.Parse(arguments);
             if (memory.GetItem<Settings>().InputFolder == null)
                 throw new FormatException("Missing input folder");
