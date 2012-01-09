@@ -10,6 +10,7 @@ using fitSharp.Fit.Operators;
 using fitSharp.Fit.Service;
 using fitSharp.Machine.Engine;
 using fitSharp.Machine.Model;
+using fitSharp.Fit.Model;
 
 namespace fit.Service {
     public class Service: CellProcessorBase {
@@ -20,6 +21,9 @@ namespace fit.Service {
             ApplicationUnderTest.AddNamespace("fitSharp.Fit.Fixtures");
             ApplicationUnderTest.AddAssembly(Assembly.GetExecutingAssembly().CodeBase);
             memory.GetItem<Operators>().AddNamespaces(ApplicationUnderTest);
+
+            if (memory.GetItem<FixtureProfiler>().Enable)
+                memory.GetItem<Operators>().ProfileInvokeDefault();
         }
 
         public void AddCellHandler(string handlerName) {
