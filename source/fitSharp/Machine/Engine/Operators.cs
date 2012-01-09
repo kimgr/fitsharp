@@ -59,6 +59,24 @@ namespace fitSharp.Machine.Engine {
                     }
         }
 
+        public void ProfileInvokeDefault() {
+            foreach (List<Operator<T, P>> list in operators) {
+                for (int i = 0; i < list.Count; ++i) {
+                    if (BaseName(list[i].GetType()).EndsWith("InvokeDefault")) {
+                        list[i] = new InvokeProfile<T, P>();
+                    }
+                }
+            }
+        }
+
+        private string BaseName(Type type) {
+            string baseName = type.FullName;
+            if (baseName.Contains("`"))
+                baseName = baseName.Substring(0, baseName.IndexOf('`'));
+
+            return baseName;
+        }
+
         public void Do<O>(CanDoOperation<O> canDoOperation, DoOperation<O> doOperation) where O: class {
             for (int priority = operators.Count - 1; priority >= 0; priority--) {
                 for (int i = operators[priority].Count - 1; i >= 0; i--) {
