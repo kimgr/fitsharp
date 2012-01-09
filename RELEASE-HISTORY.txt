@@ -1,5 +1,15 @@
-Release 2011-12-08 (Better results)
+Release 2012-01-09 (Profiler)
 -----------------------------
+Release tag: https://github.com/kimgr/fitsharp/tree/20120109
+Based on upstream version: https://github.com/jediwhale/fitsharp/tree/5d276409e92392df1e2ce7ff1488fe4806aef7a3
+
+* Added support for fixture profiling
+  * Profiling information is printed to the console
+  * Can be enabled from command-line with -fp switch or in suite config file
+    with <FixtureProfiler> block
+
+Release 2011-12-08 (Better results)
+-----------------------------------
 Release tag: https://github.com/kimgr/fitsharp/tree/20111208
 Based on upstream version: https://github.com/jediwhale/fitsharp/tree/5d276409e92392df1e2ce7ff1488fe4806aef7a3
 
@@ -7,7 +17,7 @@ Based on upstream version: https://github.com/jediwhale/fitsharp/tree/5d276409e9
 * fit.css copied before any results, so that intermediate results can be read styled
 
 Release 2011-12-07 (2.0)
------------------------------
+------------------------
 Release tag: https://github.com/kimgr/fitsharp/tree/20111207
 Based on upstream version: https://github.com/jediwhale/fitsharp/tree/5d276409e92392df1e2ce7ff1488fe4806aef7a3
 
