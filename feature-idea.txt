@@ -1,7 +1,7 @@
 Fixture profiler
 ----------------
 
-Three combinable modes;
+At first I wanted three combinable modes;
 
 1) Inline console reporting of enter/leave fixture with time elapsed. 
 This is useful to correlate with other logging, e.g. from system under test
@@ -14,4 +14,10 @@ Total with number of calls and total time elapsed per fixture
 Allows us to count the number of fixture invocations without actually running them.
 This is useful because it's probably much faster than having to execute the entire suite.
 
-The trick is that they can be used individually, or together, in any combination.
+They could be used individually, or together, in any combination.
+
+However, it turned out that (2) was hard to realize because there is no notification when a test run ends, so I would have to hard-code it into SuiteRunner, which didn't feel great.
+
+(3) is just plain stupid: if we don't invoke fixtures, their results will be unavailable, and assertions will fail.
+
+It looks like (1) is the only feature worth pursuing.
