@@ -28,7 +28,7 @@ REM Generate InternalVersionInfo.cs
 call :WriteInternalVersionInfoHeader
 echo [assembly: AssemblyInformationalVersion^("%VERSION_TEXT%"^)] >> source\InternalVersionInfo.cs
 
-call build.cmd "/p:TargetFrameworkVersion=%FXVER%;PlatformTarget=x86;Config=Release"
+call build.cmd "/p:TargetFrameworkVersion=%FXVER%;Config=Release"
 
 set EXIT_CODE=%ERRORLEVEL%
 
