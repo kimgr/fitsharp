@@ -1,3 +1,13 @@
+Release 2013-05-23 (AnyCPU)
+-----------------------------
+Release tag: https://github.com/kimgr/fitsharp/tree/20130523
+Based on previous release: https://github.com/kimgr/fitsharp/tree/20120109,
+same upstream version
+
+* Build Runner.exe for x86, everything else for AnyCPU.
+  This fixes warnings we saw when building fixture assemblies for AnyCPU against
+  FitSharp assemblies for x86.
+
 Release 2012-01-09 (Profiler)
 -----------------------------
 Release tag: https://github.com/kimgr/fitsharp/tree/20120109
